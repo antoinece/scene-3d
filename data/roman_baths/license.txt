@@ -1,0 +1,11 @@
+Model Information:
+* title:	Roman Baths - free game asset
+* source:	https://sketchfab.com/3d-models/roman-baths-free-game-asset-ecc5e51b577a48b498dfcc87ee41f779
+* author:	Andy Woodhead (https://sketchfab.com/Andywoodhead)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "Roman Baths - free game asset" (https://sketchfab.com/3d-models/roman-baths-free-game-asset-ecc5e51b577a48b498dfcc87ee41f779) by Andy Woodhead (https://sketchfab.com/Andywoodhead) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
