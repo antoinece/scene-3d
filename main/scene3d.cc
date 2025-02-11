@@ -95,9 +95,9 @@ class Scene3D final : public Scene
 
   float model_scale_2_ = 0.01;
   float model_scale_ = 15;
-  bool bloom_state_ = false;
-  float exposure_ = 0.7f;
-  float gamma_ = 0.7f;
+  bool bloom_state_ = true;
+  float exposure_ = 0.4f;
+  float gamma_ = 1.0f;
   float Normal_Rotation_angle = 270.0;
   float Normal_x = 0.1;
   float Normal_y = 0.1;
@@ -119,7 +119,18 @@ class Scene3D final : public Scene
   GLuint depth_map_fbo_ = 0;
   GLuint depth_map_texture_ = 0;
   const unsigned int SHADOW_WIDTH = 1024, SHADOW_HEIGHT = 1024;
-int l=0;
+
+  glm::vec3 lightPos0;
+  glm::vec3 lightPos1;
+  glm::vec3 lightPos2;
+  glm::vec3 lightPos3;
+
+  glm::vec3 lightColor0;
+  glm::vec3 lightColor1;
+  glm::vec3 lightColor2;
+  glm::vec3 lightColor3;
+
+  int l=0;
 };
 
 void Scene3D::Begin()
@@ -202,15 +213,24 @@ void Scene3D::Begin()
   // lighting info
   // -------------
   // positions
-  light_positions_.push_back(glm::vec3(0.0f, 0.5f, 1.5f));
-  light_positions_.push_back(glm::vec3(-4.0f, 0.5f, -3.0f));
-  light_positions_.push_back(glm::vec3(3.0f, 0.5f, 1.0f));
-  light_positions_.push_back(glm::vec3(-.8f, 2.4f, -1.0f));
+  Normal_z=0.3;
+  lightPos0=glm::vec3(1.0f, 6.0f, 0.0f);
+  lightPos1=glm::vec3(1.0f, 1.0f, -8.0f);
+  lightPos2=glm::vec3(1.0f, 2.0f, 3.0f);
+  lightPos3=glm::vec3(-2.8f, 2.6f, -7.0f);
+  light_positions_.push_back(lightPos0);;
+  light_positions_.push_back(lightPos1);;
+  light_positions_.push_back(lightPos2);;
+  light_positions_.push_back(lightPos3);;
   // colors
-  light_colors_.push_back(glm::vec3(5.0f, 5.0f, 5.0f));
-  light_colors_.push_back(glm::vec3(10.0f, 0.0f, 0.0f));
-  light_colors_.push_back(glm::vec3(0.0f, 0.0f, 15.0f));
-  light_colors_.push_back(glm::vec3(0.0f, 5.0f, 0.0f));
+  lightColor0=glm::vec3(5.0f, 5.0f, 5.0f);
+  lightColor1=glm::vec3(10.0f, 0.0f, 0.0f);
+  lightColor2=glm::vec3(0.0f, 0.0f, 15.0f);
+  lightColor3=glm::vec3(0.0f, 5.0f, 0.0f);
+  light_colors_.push_back(lightColor0);
+  light_colors_.push_back(lightColor1);
+  light_colors_.push_back(lightColor2);
+  light_colors_.push_back(lightColor3);
 
 
 
@@ -518,6 +538,19 @@ void Scene3D::Update(const float dt) {
 
   glActiveTexture(GL_TEXTURE0);
   shader_model_.Use();
+
+
+
+  light_positions_[0] = lightPos0;
+  light_positions_[1] = lightPos1;
+  light_positions_[2] = lightPos2;
+  light_positions_[3] = lightPos3;
+
+  light_colors_[0] = lightColor0;
+  light_colors_[1] = lightColor1;
+  light_colors_[2] = lightColor2;
+  light_colors_[3] = lightColor3;
+
 
 
   // Create transformations
@@ -880,6 +913,26 @@ void Scene3D::DrawImGui()
     ImGui::SliderFloat("Normal_Angle", &Normal_Rotation_angle, -360.01f, 360.0f, "%.1f");
   }
   // static ImVec4 LightColour = ImVec4(1.0f, 1.0f, 1.0f, 1.0f); // Default color
+
+
+  if (ImGui::CollapsingHeader("light Settings")) {
+    if (ImGui::CollapsingHeader("light 1")) {
+      ImGui::DragFloat3("Light Position 0", glm::value_ptr(lightPos0), 0.1f);
+      ImGui::ColorPicker3("Light Colour", reinterpret_cast<float *>(&lightColor0));
+    }
+    if (ImGui::CollapsingHeader("light 2")) {
+      ImGui::DragFloat3("Light Position 1", glm::value_ptr(lightPos1), 0.1f);
+      ImGui::ColorPicker3("Light Colour", reinterpret_cast<float *>(&lightColor1));
+    }
+    if (ImGui::CollapsingHeader("light 3")) {
+      ImGui::DragFloat3("Light Position 2", glm::value_ptr(lightPos2), 0.1f);
+      ImGui::ColorPicker3("Light Colour", reinterpret_cast<float *>(&lightColor2));
+    }
+    if (ImGui::CollapsingHeader("light 4")) {
+      ImGui::DragFloat3("Light Position 3", glm::value_ptr(lightPos3), 0.1f);
+      ImGui::ColorPicker3("Light Colour", reinterpret_cast<float *>(&lightColor3));
+    }
+  }
   // ImGui::ColorPicker3("Light Colour", reinterpret_cast<float*>(&light_colors_[0]));
   ImGui::End(); // End the window
 }

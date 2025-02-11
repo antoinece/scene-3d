@@ -468,7 +468,7 @@ void Scene3D::Update(const float dt) {
     // render wall
     auto model_4 = glm::mat4(1.0f);
     model_4 = glm::scale(model, glm::vec3(100.25f));
-    model_4 = glm::translate(model_4, glm::vec3(Normal_x, -0.12, Normal_z));
+    model_4 = glm::translate(model_4, glm::vec3(Normal_x, Normal_y, Normal_z));
     model_4 = glm::rotate(model_4, glm::radians(Normal_Rotation_angle), glm::normalize(glm::vec3(1.0, 0.0, 0.0)));
     Normal_Map.SetMat4("model", model_4);
     Normal_Map.SetVec3("viewPos", camera_.camera_position_);
