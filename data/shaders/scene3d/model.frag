@@ -1,4 +1,4 @@
-﻿#version 300 es
+#version 300 es
 precision highp float;
 
 out vec4 FragColor;
@@ -6,6 +6,7 @@ out vec4 FragColor;
 in vec2 TexCoords;
 in vec3 FragPos;
 in vec3 Normal;
+
 
 uniform sampler2D texture_diffuse1;
 uniform vec3 lightPos[4];
